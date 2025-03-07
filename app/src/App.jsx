@@ -6,21 +6,24 @@ TODO:
 - Share the searchTerm state set by the GifSearch form with the GifContainer
 */
 
-import NavBar from './components/NavBar'
-import GifContainer from './components/GifContainer'
-import GifSearch from './components/GifSearch'
+import NavBar from "./components/NavBar";
+import GifContainer from "./components/GifContainer";
+import GifSearch from "./components/GifSearch";
+import { useState } from "react";
 
 const App = () => {
+  const [searchTerm, setSearchTerm] = useState("");
+  console.log(searchTerm);
   return (
     <div>
       <NavBar color="black" title="Giphy Search" />
       <div className="ui container">
-        <GifSearch />
+        <GifSearch setSearchTerm={setSearchTerm} />
         <br />
-        <GifContainer />
+        <GifContainer searchTerm={searchTerm} />
       </div>
     </div>
   );
-}
+};
 
 export default App;
