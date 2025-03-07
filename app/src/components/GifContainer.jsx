@@ -42,7 +42,7 @@ const GifContainer = ({ searchTerm }) => {
     } else {
       fetchSearchGifs(searchTerm);
     }
-  }, [searchTerm]);
+  }, [searchTerm]); // without this dependency array, the useEffect would run in every render
 
   if (!gifs.length) return <p>Loading...</p>;
 
