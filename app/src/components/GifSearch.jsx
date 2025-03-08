@@ -6,14 +6,36 @@ TODO:
 - Handle form submissions by setting a searchTerm state value that can be shared with the GifContainer component
 */
 
-function GifSearch() {
-    return (
-        <form>
-            <label htmlFor="searchInput">Enter a Search Term </label>
-            <input type="text" className="form-control" id="searchInput" />
-            <button type="submit" className="btn btn-success">Search</button>
-        </form>
-    )
+import { useState } from "react";
+
+function GifSearch({ setSearchTerm }) {
+  const [searchValue, setSearchValue] = useState("");
+
+  const handleChange = (event) => {
+    setSearchValue(event.target.value);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    setSearchTerm(searchValue);
+    setSearchValue("");
+  };
+
+  return (
+    <form className="futuristic-form" onSubmit={handleSubmit}>
+      <label htmlFor="searchInput">Enter a Search Term</label>
+      <input
+        value={searchValue}
+        onChange={handleChange}
+        type="text"
+        className="futuristic-input"
+        id="searchInput"
+      />
+      <button type="submit" className="futuristic-btn">
+        Search
+      </button>
+    </form>
+  );
 }
 
-export default GifSearch
+export default GifSearch;

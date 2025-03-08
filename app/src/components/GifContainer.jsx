@@ -7,16 +7,58 @@ TODO:
 - render the list of fetched gifs (or the defaultGifs) as list items with an `img` inside. Remember to give each list item a unique key!
 - Bonus: if at any point an error is returned, render the default gifs again.
 */
+import { useState, useEffect } from "react";
+import defaultGifs from "../gifs.json";
+import { getGifsBySearch, getTrendingGifs } from "../adapters/giphyAdapters";
 
-import defaultGifs from '../gifs.json';
-import { getGifsBySearch, getTrendingGifs } from '../adapters/giphyAdapters';
+const GifContainer = ({ searchTerm }) => {
+  const [gifs, setGifs] = useState([]);
+  const [error, setError] = useState(false);
 
-const GifContainer = () => {
-    return (
-        <ul>
+  useEffect(() => {
+    const fetchTrendingGifs = async () => {
+      try {
+        const gifs = await getTrendingGifs();
+        setGifs(gifs);
+      } catch (err) {
+        setError(true);
+        setGifs(defaultGifs);
+      }
+    };
 
-        </ul>
-    )
-}
+    const fetchSearchGifs = async (searchTerm) => {
+      try {
+        const gifs = await getGifsBySearch(searchTerm);
+        setGifs(gifs);
+      } catch (err) {
+        setError(true);
+        setGifs(defaultGifs);
+      }
+    };
 
-export default GifContainer
+    if (searchTerm === "") {
+      fetchTrendingGifs();
+    } else {
+      fetchSearchGifs(searchTerm);
+    }
+  }, [searchTerm]);
+
+  if (!gifs.length) return <p>Loading...</p>;
+
+  return (
+    <ul className="futuristic-gif-container">
+      {gifs.map((gif, index) => (
+        <li className="futuristic-gif-item" key={gif.id || index}>
+          <img src={gif.images.fixed_height.url} alt={`Gif ${index + 1}`} />
+        </li>
+      ))}
+      {error && (
+        <p className="error-message">
+          Sorry, the GIPHY API is not working, but here are some cats.
+        </p>
+      )}
+    </ul>
+  );
+};
+
+export default GifContainer;
