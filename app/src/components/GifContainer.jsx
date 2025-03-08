@@ -15,7 +15,6 @@ const GifContainer = ({ searchTerm }) => {
   const [gifs, setGifs] = useState([]);
   const [error, setError] = useState(false);
 
-  // Fetch gifs based on search term or trending gifs on first render
   useEffect(() => {
     const fetchTrendingGifs = async () => {
       try {
@@ -42,19 +41,21 @@ const GifContainer = ({ searchTerm }) => {
     } else {
       fetchSearchGifs(searchTerm);
     }
-  }, [searchTerm]); // without this dependency array, the useEffect would run in every render
+  }, [searchTerm]);
 
   if (!gifs.length) return <p>Loading...</p>;
 
   return (
-    <ul className="gif-container">
+    <ul className="futuristic-gif-container">
       {gifs.map((gif, index) => (
-        <li className="gif-item" key={gif.id || index}>
+        <li className="futuristic-gif-item" key={gif.id || index}>
           <img src={gif.images.fixed_height.url} alt={`Gif ${index + 1}`} />
         </li>
       ))}
       {error && (
-        <p>Sorry, the GIPHY API is not working, but here are some cats.</p>
+        <p className="error-message">
+          Sorry, the GIPHY API is not working, but here are some cats.
+        </p>
       )}
     </ul>
   );

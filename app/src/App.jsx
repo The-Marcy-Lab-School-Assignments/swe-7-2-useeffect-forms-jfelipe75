@@ -16,7 +16,7 @@ const App = () => {
   console.log(searchTerm);
   return (
     <div>
-      <NavBar color="black" title="Giphy Search" />
+      <NavBar title="Giphy Search" />
       <div className="ui container">
         <GifSearch setSearchTerm={setSearchTerm} />
         <br />

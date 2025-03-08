@@ -9,33 +9,29 @@ TODO:
 import { useState } from "react";
 
 function GifSearch({ setSearchTerm }) {
-  // Local state to control the input value
   const [searchValue, setSearchValue] = useState("");
 
   const handleChange = (event) => {
-    // Update the local state as the user types
     setSearchValue(event.target.value);
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // Set the search term in the parent component
     setSearchTerm(searchValue);
-    // Clear the input after submission
     setSearchValue("");
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="futuristic-form" onSubmit={handleSubmit}>
       <label htmlFor="searchInput">Enter a Search Term</label>
       <input
-        value={searchValue} // Controlled input tied to local state
+        value={searchValue}
         onChange={handleChange}
         type="text"
-        className="form-control"
+        className="futuristic-input"
         id="searchInput"
       />
-      <button type="submit" className="btn btn-success">
+      <button type="submit" className="futuristic-btn">
         Search
       </button>
     </form>

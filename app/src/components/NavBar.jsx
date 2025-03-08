@@ -1,12 +1,7 @@
-const colors = {
-  black: "navbar-inverse",
-  white: "navbar-default",
-};
-
-const NavBar = ({ color, title }) => {
+const NavBar = ({ title }) => {
   return (
-    <nav className={`navbar ${colors[color]}`}>
-      <div className="container-fluid">
+    <nav className="futuristic-navbar">
+      <div className="navbar-container">
         <div className="navbar-header">
           <div className="navbar-brand">{title}</div>
         </div>
